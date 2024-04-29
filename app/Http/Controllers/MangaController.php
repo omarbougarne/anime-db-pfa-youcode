@@ -51,7 +51,7 @@ class MangaController extends Controller
     public function show(string $id)
     {
         $manga = Manga::findOrFail($id);
-        return view('mangas.show', ['manga' => $manga]);
+        return view('mangas.show', compact('manga'));
     }
 
     /**
@@ -60,7 +60,7 @@ class MangaController extends Controller
     public function edit(string $id)
     {
         $manga = Manga::findOrFail($id);
-        return view('mangas.edit', ['manga' => $manga]);
+        return view('mangas.edit', compact('mangas'));
     }
 
     /**
@@ -70,7 +70,7 @@ class MangaController extends Controller
     {
         // Validate the incoming request
         $request->validate([
-            'title' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             // Add validation rules for other fields as needed
         ]);
 
@@ -78,7 +78,7 @@ class MangaController extends Controller
         $manga = Manga::findOrFail($id);
 
         // Update the manga with the new data
-        $manga->title = $request->input('title');
+        $manga->name = $request->input('name');
         // Update other fields as needed
         $manga->save();
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Anime;
 use App\Models\Comment;
+use App\Models\Manga;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -85,36 +86,47 @@ public function removeFromList(Request $request, $id)
     return redirect(route('animes.index'))->with('success', $anime->title . ' has been removed');
 }
 
-    public function create()
-    {
-        $studios = StudioController::getStudios();
-        $status = StatusController::getStatuss();
+public function create()
+{
+    $studios = StudioController::getStudios();
+    $status = StatusController::getStatuss();
+    $mangas = Manga::all(); // Fetch all mangas
 
-        return view('anime.create')->with('studios', $studios)->with('status', $status);
-    }
+    return view('anime.create')->with('studios', $studios)->with('status', $status)->with('mangas', $mangas);
+}
+
 
     public function store(Request $request)
-    {
-        $request->validate($this->getRules());
+{
+    $request->validate($this->getRules());
 
-        $anime = new Anime();
-        $anime->title = $request->input('title');
-        $anime->synopsis = $request->input('synopsis');
-        $anime->score = $request->input('score');
+    $anime = new Anime();
+    $anime->title = $request->input('title');
+    $anime->synopsis = $request->input('synopsis');
+    $anime->score = $request->input('score');
 
-        if ($request->image) {
-            $anime->image = $request->image->store('images', 'public');
-        }
-
-        // $anime->episodes = $request->input('episodes');
-        // $anime->source = $request->input('source');
-        $anime->studio_id = $request->input('studio');
-        $anime->statu_id = $request->input('statu');
-
-        $anime->save();
-
-        return redirect(route('animes.index'));
+    if ($request->image) {
+        $anime->image = $request->image->store('images', 'public');
     }
+
+    // Get the manga name based on the manga_id
+    $mangaName = Manga::findOrFail($request->input('manga_id'))->name;
+
+    // Associate the manga name with the anime
+    $anime->manga_name = $mangaName;
+
+    // Assuming you have 'episodes' and 'source' fields in your form, uncomment and assign them if needed
+    // $anime->episodes = $request->input('episodes');
+    // $anime->source = $request->input('source');
+
+    $anime->studio_id = $request->input('studio');
+    $anime->statu_id = $request->input('statu');
+
+    $anime->save();
+
+    return redirect(route('animes.index'));
+}
+
 
     public function updateRating(Request $request, $id)
     {
