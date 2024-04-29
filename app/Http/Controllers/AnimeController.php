@@ -107,7 +107,7 @@ public function removeFromList(Request $request, $id)
         }
 
         // $anime->episodes = $request->input('episodes');
-        $anime->source = $request->input('source');
+        // $anime->source = $request->input('source');
         $anime->studio_id = $request->input('studio');
         $anime->statu_id = $request->input('statu');
 
@@ -188,7 +188,7 @@ public function removeFromList(Request $request, $id)
         }
 
         // $anime->episodes = $request->input('episodes');
-        $anime->source = $request->input('source');
+        // $anime->source = $request->input('source');
         $anime->studio_id = $request->input('studio');
         $anime->statu_id = $request->input('statu');
 
@@ -305,7 +305,7 @@ public function removeFromList(Request $request, $id)
             'image.*' => '',
             'score.*' => '',
             // 'episodes.*' => '',
-            'source.*' => ''
+            // 'source.*' => ''
         ];
         return $msg;
     }

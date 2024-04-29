@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Episode;
+use App\Models\Manga;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,8 +15,6 @@ class Anime extends Model
         'title',
         'synopsis',
         'score',
-        // 'episodes',
-        'source'
     ];
 
     //..eager loading
@@ -46,6 +45,10 @@ class Anime extends Model
 public function users()
     {
         return $this->belongsToMany(User::class)->withPivot('watched', 'rating')->withTimestamps();
+    }
+    public function manga()
+    {
+        return $this->belongsToMany(Manga::class)->optional();
     }
 
 }

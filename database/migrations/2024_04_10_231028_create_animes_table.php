@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string("synopsis", 6000);
             $table->string('image');
             $table->decimal('score', 4, 2);
-            $table->string("source", 30);
             $table->timestamps();
         });
     }

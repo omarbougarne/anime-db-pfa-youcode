@@ -19,11 +19,14 @@
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav mr-auto">
+                            @if(Auth::check())
                             <li class="nav-item active">
                                 <a class="nav-link {{{ Route::current()->getName() == 'animes.user_list' ? 'active' : '' }}}" href="{{ route('animes.user_list', ['userId' => Auth::id()]) }}">My Liste</a>
                             </li>
+                            @endif
                             <li class="nav-item active">
                                 <a class="nav-link {{{ Route::current()->getName() == 'animes.index' ? 'active' : '' }}}" href="{{ route('animes.index') }}">Animes</a>
                             </li>

@@ -41,8 +41,6 @@ public function register(Request $request)
         'password' => Hash::make($request->password),
         'avatar' => $avatarPath,
     ]);
-    dd($user);
-    // Log in the user
     Auth::login($user);
 
     return redirect('/');

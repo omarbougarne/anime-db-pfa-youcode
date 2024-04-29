@@ -15,6 +15,7 @@ class EpisodesController extends Controller
     return view('episodes.index', compact('anime', 'episodes'));
 }
 
+
 public function create($anime_id)
 {
     $anime = Anime::findOrFail($anime_id);
